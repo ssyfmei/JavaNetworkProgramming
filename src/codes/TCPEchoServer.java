@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 public class TCPEchoServer {
 	
 	private static final int BUFSIZE = 32;
@@ -26,6 +25,7 @@ public class TCPEchoServer {
 		for(;;) {
 			Socket clientSocket = serverSocket.accept();
 			
+			// clientSocket.getPort() returns the port of the client
 			System.out.println("Handling client at " + 
 				clientSocket.getInetAddress().getHostAddress() + " on port " +
 					clientSocket.getPort());
