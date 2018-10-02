@@ -1,8 +1,6 @@
 # Datagram
 **DatagramPacket**
 
-
-
 ```java
 //	DatagramPacket: Creation
 DatagramPacket(byte[ ] data, int length)
