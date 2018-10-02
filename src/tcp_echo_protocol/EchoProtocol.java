@@ -1,4 +1,4 @@
-package multithread;
+package tcp_echo_protocol;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,30 +11,25 @@ public class EchoProtocol implements Runnable {
 	private static final int BUFSIZE = 32;
 	private Socket cSocket;
 	private Logger logger;
-	
 	public EchoProtocol(Socket cSocket, Logger logger) {
 		this.cSocket = cSocket;
-		this.logger  = logger;
+		this.logger = logger;
 	}
-	
 	public static void handleEchoClient(Socket cSocket, Logger logger) {
+		int recvMsgSize;
+		int totalMsgSize = 0;
+		byte[] bufferBytes = new byte[BUFSIZE];
 		try {
 			InputStream inputStream = cSocket.getInputStream();
 			OutputStream outputStream = cSocket.getOutputStream();
-			
-			int recvMsgSize;
-			int totalBytesEchoed = 0;
-			byte[] echoBuffer = new byte[BUFSIZE];
-			
-			while((recvMsgSize = inputStream.read(echoBuffer)) != -1) {
-				outputStream.write(echoBuffer, 0, recvMsgSize);
-				totalBytesEchoed += recvMsgSize;
+			while((recvMsgSize = inputStream.read(bufferBytes)) != -1) {
+				outputStream.write(bufferBytes, 0, recvMsgSize);
+				totalMsgSize += recvMsgSize;
 			}
-			
 			logger.info("Client " + cSocket.getRemoteSocketAddress() +", echoed"
-					+ totalBytesEchoed + " bytes.");
-		} catch (IOException ex) {
-			logger.log(Level.WARNING, "Exception in echo protocol", ex);
+					+ totalMsgSize + " bytes.");
+		} catch (IOException e) {
+			logger.log(Level.WARNING, "Exception in Echo Protocol", e);
 		} finally {
 			try {
 				cSocket.close();
@@ -43,8 +38,9 @@ public class EchoProtocol implements Runnable {
 			}
 		}
 	}
-	
+	@Override
 	public void run() {
 		handleEchoClient(cSocket, logger);
 	}
+	
 }
