@@ -22,7 +22,7 @@ public class TCPEchoServer {
 		int recvMsgSize;
 		byte[] byteBuff = new byte[BUFSIZE];
 		
-		for(;;) {
+		while(true) {
 			Socket clientSocket = serverSocket.accept();
 			
 			// clientSocket.getPort() returns the port of the client

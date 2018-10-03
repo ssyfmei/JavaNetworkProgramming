@@ -59,9 +59,27 @@ If the timeout expires, a java.net.SocketTimeoutException is raised, though the 
 
 4. Address Reuse
 
+   ```java
+   // Socket, ServerSocket, DatagramSocket:
+   boolean getReuseAddress()
+   void setReuseAddress(boolean on)
+   // read and set reuse address permissions
+   ```
+
+   Case 1. To bind multiple sockets to the same socket address
+
+   Case 2.  To reuse a socket, avoiding the overhead of closing and creating a socket.
+
    ​
 
 5. Eliminating Buffering Delay
+
+   ```java
+   // Socket
+   boolean getTcpNoDelay()
+   void setTcpNoDelay(boolean on)
+   // set/read buffering delay provided by TCP.
+   ```
 
    ​
 

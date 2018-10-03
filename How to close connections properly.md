@@ -58,7 +58,7 @@ After the receiving endpoint is closed, the server send the last piece of bytes 
 ### Flush
 
 ```java
-outputStream.finish(); // Flush bytes from stream
+outputStream.flush();
 ```
 
 What is the exact semantics of this line?
