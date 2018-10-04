@@ -1,4 +1,4 @@
-package codes;
+package blocking;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ public class TCPEchoClient {
 		
 		int totalBytesRecvd = 0;
 		int bytesRecvd;
-		while (totalBytesRecvd < data.length) {
+		while (totalBytesRecvd < data.length) { // because here we know the length of data
 			if ((bytesRecvd = inStream.read(data, totalBytesRecvd,
 							     data.length - totalBytesRecvd)) == -1) {
 				throw new SocketException("The connection was closed prematurely");
